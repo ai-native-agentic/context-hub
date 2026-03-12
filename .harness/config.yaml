@@ -1,0 +1,10 @@
+project: context-hub
+language: typescript
+package_manager: npm
+gates:
+  gate_a: true
+  gate_b: true
+  gate_c: true
+  gate_d: true
+  gate_e: false
+  gate_f: false
