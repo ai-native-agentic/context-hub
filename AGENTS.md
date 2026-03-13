@@ -12,31 +12,89 @@ Context Hub solves the problem of coding agents hallucinating APIs and forgettin
 
 ## STRUCTURE
 
-```
 context-hub/
-├── cli/                          # CLI package (@aisuite/chub)
+├── cli/
 │   ├── bin/
-│   │   ├── chub                  # Main CLI binary
-│   │   └── chub-mcp              # MCP server binary
+│   ├── skills/
 │   ├── src/
-│   │   ├── index.js              # CLI entry point (Commander setup)
-│   │   ├── commands/             # Command implementations
-│   │   │   ├── search.js         # Search docs/skills
-│   │   │   ├── get.js            # Fetch docs by ID
-│   │   │   ├── annotate.js       # Local annotations
-│   │   │   ├── feedback.js       # Upvote/downvote docs
-│   │   │   ├── update.js         # Refresh registry cache
-│   │   │   ├── cache.js          # Cache management
-│   │   │   └── build.js          # Build registry from content/
-│   │   ├── lib/                  # Shared utilities
-│   │   └── mcp/                  # MCP server implementation
-│   ├── skills/                   # Agent skill templates
-│   └── package.json              # Dependencies, scripts, bin entries
-├── content/                      # 68 API doc providers (markdown + YAML frontmatter)
-├── docs/                         # CLI reference, content guide, feedback docs
-├── .harness/                     # QA gates (run-gates.sh)
-└── package.json                  # Workspace root
-```
+│   ├── test/
+│   ├── tests/
+│   ├── README.md
+│   └── package.json
+├── content/
+│   ├── airtable/
+│   ├── amplitude/
+│   ├── anthropic/
+│   ├── asana/
+│   ├── assemblyai/
+│   ├── atlassian/
+│   ├── auth0/
+│   ├── aws/
+│   ├── binance/
+│   ├── braintree/
+│   ├── chromadb/
+│   ├── clerk/
+│   ├── cloudflare/
+│   ├── cockroachdb/
+│   ├── cohere/
+│   ├── datadog/
+│   ├── deepgram/
+│   ├── deepl/
+│   ├── deepseek/
+│   ├── directus/
+│   ├── discord/
+│   ├── elasticsearch/
+│   ├── elevenlabs/
+│   ├── firebase/
+│   ├── gemini/
+│   ├── github/
+│   ├── google/
+│   ├── hubspot/
+│   ├── huggingface/
+│   ├── intercom/
+│   ├── jira/
+│   ├── kafka/
+│   ├── landingai-ade/
+│   ├── launchdarkly/
+│   ├── linear/
+│   ├── livekit/
+│   ├── mailchimp/
+│   ├── meilisearch/
+│   ├── microsoft/
+│   ├── mongodb/
+│   ├── notion/
+│   ├── okta/
+│   ├── openai/
+│   ├── paypal/
+│   ├── pinecone/
+│   ├── plaid/
+│   ├── playwright-community/
+│   ├── postmark/
+│   ├── prisma/
+│   ├── qdrant/
+│   ├── rabbitmq/
+│   ├── razorpay/
+│   ├── redis/
+│   ├── replicate/
+│   ├── resend/
+│   ├── salesforce/
+│   ├── sendgrid/
+│   ├── sentry/
+│   ├── shopify/
+│   ├── slack/
+│   ├── square/
+│   ├── stripe/
+│   ├── stytch/
+│   ├── supabase/
+│   ├── twilio/
+│   ├── vercel/
+│   ├── weaviate/
+│   └── zendesk/
+├── docs/
+│   ├── features/
+├── AGENTS.md
+├── README.md
+├── package.json
 
 ## WHERE TO LOOK
 
