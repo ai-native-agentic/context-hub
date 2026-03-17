@@ -13,6 +13,7 @@ import { registerFeedbackCommand } from './commands/feedback.js';
 import { registerAnnotateCommand } from './commands/annotate.js';
 import { trackEvent, shutdownAnalytics } from './lib/analytics.js';
 import { error } from './lib/output.js';
+import { showWelcomeIfNeeded } from './lib/welcome.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(join(__dirname, '..', 'package.json'), 'utf8'));
@@ -104,6 +105,9 @@ program
 const SKIP_REGISTRY = ['update', 'cache', 'build', 'feedback', 'annotate', 'help'];
 
 program.hook('preAction', async (thisCommand) => {
+  const globalOpts = thisCommand.optsWithGlobals?.() || {};
+  showWelcomeIfNeeded(globalOpts);
+
   const cmdName = thisCommand.args?.[0] || thisCommand.name();
   // Track command usage (fire-and-forget, never blocks)
   if (cmdName !== 'chub') {
@@ -116,7 +120,6 @@ program.hook('preAction', async (thisCommand) => {
   try {
     await ensureRegistry();
   } catch (err) {
-    const globalOpts = thisCommand.optsWithGlobals?.() || {};
     error(`Registry not available: ${err.message}. Run \`chub update\` to refresh remote registries, or check that local source paths in ~/.chub/config.yaml are correct.`, globalOpts);
   }
 });

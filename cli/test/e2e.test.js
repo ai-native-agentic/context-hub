@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { existsSync, readFileSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
@@ -50,6 +50,24 @@ describe('chub CLI e2e', () => {
   });
 
   describe('build', () => {
+    it('keeps first-run JSON output clean', () => {
+      const freshChubDir = mkdtempSync(join(tmpdir(), 'chub-e2e-json-'));
+      try {
+        writeFileSync(join(freshChubDir, 'config.yaml'), `sources:\n  - name: test\n    path: ${BUILD_OUTPUT}\n\nsource: official,maintainer,community\n`);
+        const result = spawnSync('node', [CLI, 'build', FIXTURES, '--validate-only', '--json'], {
+          encoding: 'utf8',
+          env: { ...process.env, NO_COLOR: '1', CHUB_DIR: freshChubDir },
+          timeout: 10000,
+        });
+
+        expect(result.status).toBe(0);
+        expect(() => JSON.parse(result.stdout)).not.toThrow();
+        expect(result.stderr).toBe('');
+      } finally {
+        rmSync(freshChubDir, { recursive: true, force: true });
+      }
+    });
+
     it('produces registry.json', () => {
       expect(existsSync(join(BUILD_OUTPUT, 'registry.json'))).toBe(true);
     });
